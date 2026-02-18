@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fault Codes — Marine Tech Pro</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <header class="top-bar">
+        <a href="index.html" class="back-link">← Home</a>
+        <h1>Fault Codes</h1>
+        <span style="width:60px"></span>
+    </header>
+
+    <!-- SEARCH AND FILTERS -->
+    <div style="padding:16px;">
+
+        <!-- Search box -->
+        <input
+            type="text"
+            id="searchBox"
+            class="search-input"
+            placeholder="Type to search codes, symptoms, keywords..."
+        >
+
+        <!-- Manufacturer filter -->
+        <div class="filter-row">
+            <button class="filter-btn active" id="filterAll" onclick="setMfgFilter('all')">All</button>
+            <button class="filter-btn" id="filterMercury" onclick="setMfgFilter('mercury')">Mercury</button>
+            <button class="filter-btn" id="filterYamaha" onclick="setMfgFilter('yamaha')">Yamaha</button>
+        </div>
+
+        <!-- Severity filter -->
+        <div class="filter-row">
+            <button class="filter-btn active" id="sevAll" onclick="setSevFilter('all')">All Levels</button>
+            <button class="filter-btn" id="sevWarning" onclick="setSevFilter('warning')">Warning</button>
+            <button class="filter-btn" id="sevAlarm" onclick="setSevFilter('alarm')">Alarm</button>
+            <button class="filter-btn" id="sevShutdown" onclick="setSevFilter('shutdown')">Shutdown</button>
+        </div>
+
+        <!-- Results count -->
+        <div id="resultCount" style="font-size:13px; color:#7f8c8d; margin-bottom:12px;"></div>
+
+        <!-- Results will appear here -->
+        <div id="results"></div>
+
+    </div>
+
+    <!-- Load the fault code data file FIRST -->
+    <script src="js/faultCodes.js"></script>
+
+    <!-- Then the logic that uses it -->
+    <script>
+
+    // Current filter settings
+    var mfgFilter = 'all';
+    var sevFilter = 'all';
+
+    // =============================================
+    // RUN WHEN PAGE LOADS
+    // Shows all codes immediately
+    // =============================================
+    window.onload = function() {
+
+        // Check that the data file loaded
+        if (!window.faultCodeDatabase) {
+            document.getElementById('results').innerHTML =
+                '<div style="padding:40px; text-align:center; color:red;">' +
+                '<p style="font-size:18px; font-weight:700;">Error: Fault code data not loaded</p>' +
+                '<p style="margin-top:8px;">Make sure the file <strong>js/faultCodes.js</strong> exists in your js folder.</p>' +
+                '</div>';
+            return;
+        }
+
+        // Show all codes on first load
+        runSearch();
+
+        // Set up the search box to filter as you type
+        var searchBox = document.getElementById('searchBox');
+        searchBox.addEventListener('input', function() {
+            runSearch();
+        });
+
+        // Also handle Enter key (just runs the same search)
+        searchBox.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                runSearch();
+            }
+        });
+    };
+
+    // =============================================
+    // SET MANUFACTURER FILTER
+    // =============================================
+    function setMfgFilter(value) {
+        mfgFilter = value;
+
+        // Update button styles
+        document.getElementById('filterAll').className = 'filter-btn';
+        document.getElementById('filterMercury').className = 'filter-btn';
+        document.getElementById('filterYamaha').className = 'filter-btn';
+
+        if (value === 'all') document.getElementById('filterAll').className = 'filter-btn active';
+        if (value === 'mercury') document.getElementById('filterMercury').className = 'filter-btn active';
+        if (value === 'yamaha') document.getElementById('filterYamaha').className = 'filter-btn active';
+
+        runSearch();
+    }
+
+    // =============================================
+    // SET SEVERITY FILTER
+    // =============================================
+    function setSevFilter(value) {
+        sevFilter = value;
+
+        document.getElementById('sevAll').className = 'filter-btn';
+        document.getElementById('sevWarning').className = 'filter-btn';
+        document.getElementById('sevAlarm').className = 'filter-btn';
+        document.getElementById('sevShutdown').className = 'filter-btn';
+
+        if (value === 'all') document.getElementById('sevAll').className = 'filter-btn active';
+        if (value === 'warning') document.getElementById('sevWarning').className = 'filter-btn active';
+        if (value === 'alarm') document.getElementById('sevAlarm').className = 'filter-btn active';
+        if (value === 'shutdown') document.getElementById('sevShutdown').className = 'filter-btn active';
+
+        runSearch();
+    }
+
+    // =============================================
+    // MAIN SEARCH FUNCTION
+    // Runs every time you type or change a filter
+    // =============================================
+    function runSearch() {
+        var searchText = document.getElementById('searchBox').value.toLowerCase().trim();
+        var matchingCodes = [];
+
+        // Loop through every fault code in the database
+        for (var i = 0; i < window.faultCodeDatabase.length; i++) {
+            var code = window.faultCodeDatabase[i];
+
+            // Check manufacturer filter
+            if (mfgFilter !== 'all') {
+                if (code.manufacturer.toLowerCase() !== mfgFilter) {
+                    continue; // skip this code
+                }
+            }
+
+            // Check severity filter
+            if (sevFilter !== 'all') {
+                if (code.severity.toLowerCase() !== sevFilter) {
+                    continue; // skip this code
+                }
+            }
+
+            // Check search text (if user typed something)
+            if (searchText.length > 0) {
+                var allText = (
+                    code.code + ' ' +
+                    code.description + ' ' +
+                    code.system + ' ' +
+                    code.manufacturer + ' ' +
+                    code.causes + ' ' +
+                    code.steps
+                ).toLowerCase();
+
+                if (allText.indexOf(searchText) === -1) {
+                    continue; // skip — doesn't match search
+                }
+            }
+
+            // If we got here, the code matches all filters
+            matchingCodes.push(code);
+        }
+
+        // Display the matching codes
+        showResults(matchingCodes);
+    }
+
+    // =============================================
+    // TOGGLE DETAIL SECTION ON A FAULT CARD
+    // =============================================
+    function toggleDetails(cardIndex) {
+        var detailDiv = document.getElementById('detail_' + cardIndex);
+        var toggleBtn = document.getElementById('togBtn_' + cardIndex);
+
+        if (!detailDiv || !toggleBtn) return;
+
+        if (detailDiv.style.display === 'block') {
+            detailDiv.style.display = 'none';
+            toggleBtn.textContent = 'Show Diagnosis Steps ▼';
+        } else {
+            detailDiv.style.display = 'block';
+            toggleBtn.textContent = 'Hide Details ▲';
+        }
+    }
+
+    // =============================================
+    // DISPLAY RESULTS ON THE PAGE
+    // =============================================
+    function showResults(codes) {
+        var container = document.getElementById('results');
+        var countDiv = document.getElementById('resultCount');
+        var html = '';
+
+        // Show count
+        if (codes.length === 1) {
+            countDiv.textContent = '1 code found';
+        } else {
+            countDiv.textContent = codes.length + ' codes found';
+        }
+
+        // No results message
+        if (codes.length === 0) {
+            html = html + '<div style="text-align:center; padding:40px 20px; color:#95a5a6;">';
+            html = html + '<div style="font-size:48px; margin-bottom:12px;">🔍</div>';
+            html = html + '<div style="font-size:16px; font-weight:600;">No matching fault codes found</div>';
+            html = html + '<div style="font-size:14px; margin-top:8px;">Try a different search term or change the filters above.</div>';
+            html = html + '</div>';
+            container.innerHTML = html;
+            return;
+        }
+
+        // Build a card for each matching code
+        for (var i = 0; i < codes.length; i++) {
+            var c = codes[i];
+            var sevLower = c.severity.toLowerCase();
+
+            html = html + '<div class="fault-card">';
+
+            // === TOP ROW: Code number and severity badge ===
+            html = html + '<div class="fault-top-row">';
+            html = html + '<span class="fault-code-label">' + c.code + '</span>';
+            html = html + '<span class="fault-severity-badge ' + sevLower + '">' + c.severity.toUpperCase() + '</span>';
+            html = html + '</div>';
+
+            // === Manufacturer and system ===
+            html = html + '<div class="fault-system-label">' + c.manufacturer + ' — ' + c.system + '</div>';
+
+            // === Description ===
+            html = html + '<div class="fault-desc">' + c.description + '</div>';
+
+            // === Show/Hide details button ===
+            html = html + '<button class="fault-toggle-btn" id="togBtn_' + i + '" onclick="toggleDetails(' + i + ')">';
+            html = html + 'Show Diagnosis Steps ▼';
+            html = html + '</button>';
+
+            // === Detail section (hidden by default) ===
+            html = html + '<div id="detail_' + i + '" style="display:none;">';
+
+            // Probable causes
+            html = html + '<div class="fault-section-heading">Probable Causes:</div>';
+            html = html + '<div class="fault-section-body">';
+            var causeList = c.causes.split('|');
+            for (var ca = 0; ca < causeList.length; ca++) {
+                html = html + '• ' + causeList[ca].trim() + '<br>';
+            }
+            html = html + '</div>';
+
+            // Diagnostic steps
+            html = html + '<div class="fault-section-heading">Diagnostic Steps:</div>';
+            html = html + '<div class="fault-section-body">';
+            var stepList = c.steps.split('|');
+            for (var s = 0; s < stepList.length; s++) {
+                html = html + '<div style="margin-bottom:8px; padding-left:4px;">' + stepList[s].trim() + '</div>';
+            }
+            html = html + '</div>';
+
+            // Tools needed
+            if (c.tools && c.tools.length > 0) {
+                html = html + '<div class="fault-section-heading">Tools Needed:</div>';
+                html = html + '<div class="fault-section-body">' + c.tools + '</div>';
+            }
+
+            // Parts commonly needed
+            if (c.parts && c.parts.length > 0) {
+                html = html + '<div class="fault-section-heading">Parts Commonly Needed:</div>';
+                html = html + '<div class="fault-section-body">' + c.parts + '</div>';
+            }
+
+            html = html + '</div>'; // close detail section
+            html = html + '</div>'; // close fault-card
+        }
+
+        container.innerHTML = html;
+    }
+
+    </script>
+
+</body>
+</html>

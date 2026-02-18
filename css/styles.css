@@ -1,0 +1,688 @@
+/* ==============================================
+   MARINE TECH PRO — WEBSITE STYLES
+   Designed for phones. Big buttons. Easy to read.
+   ============================================== */
+
+/* --- RESET (makes all browsers behave the same) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f0f2f5;
+    color: #2c3e50;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- TOP BAR (dark blue header on every page) --- */
+.top-bar {
+    background: linear-gradient(135deg, #1a3a5c, #2c5f8a);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-bar h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.back-link {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+/* --- STATUS BAR --- */
+.status-bar {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 16px;
+    display: flex;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.status-item {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.status-icon {
+    font-size: 18px;
+}
+
+.status-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7f8c8d;
+}
+
+.status-divider {
+    width: 1px;
+    background: #ecf0f1;
+    margin: 0 8px;
+}
+
+/* --- MENU CARDS (big tappable buttons on home page) --- */
+.menu-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 18px 16px;
+    margin: 0 16px 12px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    min-height: 70px;
+    cursor: pointer;
+}
+
+.menu-card:active {
+    background: #f8f9fa;
+    transform: scale(0.99);
+}
+
+.menu-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.menu-icon.red    { background: #fde8e8; }
+.menu-icon.orange { background: #fef3e2; }
+.menu-icon.blue   { background: #e8f0fe; }
+.menu-icon.green  { background: #e6f4ea; }
+.menu-icon.purple { background: #f0e6fa; }
+
+.menu-text {
+    flex: 1;
+    margin-left: 14px;
+}
+
+.menu-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.menu-subtitle {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 2px;
+}
+
+.menu-arrow {
+    font-size: 24px;
+    color: #ccc;
+}
+
+/* --- SAFETY BANNER --- */
+.safety-banner {
+    background: #fff9e6;
+    border-left: 4px solid #f39c12;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* --- SECTION HEADERS --- */
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin: 16px 16px 4px 16px;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin: 0 16px 16px 16px;
+}
+
+.category-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #95a5a6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 20px 16px 8px 20px;
+}
+
+/* --- DIAGNOSTIC SCREEN --- */
+.diag-wrap {
+    padding: 16px;
+    padding-bottom: 80px;
+}
+
+/* Navigation bar above the diagnostic card */
+.step-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.step-back-btn {
+    background: none;
+    border: 2px solid #1a3a5c;
+    color: #1a3a5c;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+.step-back-btn:disabled {
+    opacity: 0.3;
+    border-color: #ccc;
+    color: #ccc;
+}
+
+.step-number {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.step-reset-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px;
+    min-height: 44px;
+}
+
+/* The main diagnostic content card */
+.diag-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.diag-card.resolution          { border-top: 4px solid #27ae60; }
+.diag-card.resolution-critical { border-top: 4px solid #e74c3c; }
+.diag-card.resolution-high     { border-top: 4px solid #e67e22; }
+.diag-card.resolution-medium   { border-top: 4px solid #f39c12; }
+
+.diag-main-text {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #2c3e50;
+    margin-bottom: 16px;
+}
+
+/* Resolution severity banners */
+.severity-banner {
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+}
+
+.severity-banner.low      { background: #27ae60; }
+.severity-banner.medium   { background: #f39c12; }
+.severity-banner.high     { background: #e67e22; }
+.severity-banner.critical { background: #e74c3c; }
+
+.resolution-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+/* Blue help/tip box */
+.help-box {
+    background: #e8f4fd;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #2c5f8a;
+    line-height: 1.6;
+}
+
+/* Red warning box */
+.warning-box {
+    background: #fde8e8;
+    border-left: 4px solid #e74c3c;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #c0392b;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Checklists */
+.checklist-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 10px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f2f5;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+.check-box {
+    width: 26px;
+    height: 26px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+}
+
+.check-box.checked {
+    background: #27ae60;
+    border-color: #27ae60;
+}
+
+.check-label {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #2c3e50;
+}
+
+.check-label.checked {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+/* Measurement input box */
+.measure-box {
+    background: #f0f7ff;
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.measure-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 4px;
+}
+
+.measure-expected {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-bottom: 12px;
+}
+
+.measure-row {
+    display: flex;
+    gap: 8px;
+}
+
+.measure-input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    min-height: 48px;
+}
+
+.measure-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.measure-save-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 48px;
+}
+
+/* Action box (green, on resolution pages) */
+.action-box {
+    background: #e6f4ea;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+.action-heading {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a5c2a;
+    margin-bottom: 6px;
+}
+
+.action-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+/* Parts box (gray) */
+.parts-box {
+    background: #f5f6fa;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+.parts-heading {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a3a5c;
+    margin-bottom: 8px;
+}
+
+.parts-line {
+    font-size: 14px;
+    padding: 3px 0;
+    color: #2c3e50;
+}
+
+.time-estimate {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* Option buttons (the choices the tech taps) */
+.options-wrap {
+    margin-bottom: 20px;
+}
+
+.options-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 12px;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    background: white;
+    border: 2px solid #dfe6e9;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+    text-align: left;
+    cursor: pointer;
+    min-height: 56px;
+    line-height: 1.4;
+}
+
+.option-btn:active {
+    background: #1a3a5c;
+    color: white;
+    border-color: #1a3a5c;
+}
+
+/* --- FAULT CODE PAGE --- */
+.search-wrap {
+    padding: 16px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-bottom: 12px;
+    min-height: 52px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.filter-btn {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+.filter-btn.active {
+    background: #1a3a5c;
+    color: white;
+    border-color: #1a3a5c;
+}
+
+.fault-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.fault-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.fault-code-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a3a5c;
+}
+
+.fault-severity-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: white;
+}
+
+.fault-severity-badge.warning  { background: #f39c12; }
+.fault-severity-badge.alarm    { background: #e67e22; }
+.fault-severity-badge.shutdown { background: #e74c3c; }
+
+.fault-system-label {
+    font-size: 12px;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.fault-desc {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.fault-toggle-btn {
+    background: #f0f2f5;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a3a5c;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+}
+
+.fault-detail-section {
+    display: none;
+    margin-top: 12px;
+}
+
+.fault-detail-section.show {
+    display: block;
+}
+
+.fault-section-heading {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.fault-section-body {
+    font-size: 14px;
+    color: #2c3e50;
+    line-height: 1.7;
+}
+
+/* --- ENGINE SPEC PAGE --- */
+.spec-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 0 16px 16px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.spec-engine-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 2px;
+}
+
+.spec-years {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-bottom: 16px;
+}
+
+.spec-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.spec-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.spec-table td:first-child {
+    font-weight: 600;
+    color: #1a3a5c;
+    width: 40%;
+}
+
+.spec-divider {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 16px;
+    border-top: 2px solid #f0f2f5;
+}
+
+.engine-pick-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px;
+}
+
+.engine-pick-btn {
+    padding: 10px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+.engine-pick-btn.active {
+    background: #1a3a5c;
+    color: white;
+    border-color: #1a3a5c;
+}
+
+/* --- UTILITY --- */
+.hidden { display: none !important; }
