@@ -7,7 +7,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="css/styles.css">
-    /* ==========================================
+    <style>
+        /* ==========================================
            DIAGNOSTIC PAGE STYLES
            These override/supplement the main CSS
            to ensure everything looks right
@@ -310,7 +311,7 @@
             color: #2c3e50;
         }
 
-        /* Section label between buttons */
+        /* Label above option buttons */
         .options-label {
             font-size: 13px;
             font-weight: 700;
@@ -320,6 +321,7 @@
             margin-top: 20px;
             margin-bottom: 10px;
         }
+    </style>
 </head>
 <body>
 
@@ -340,12 +342,14 @@
 
     <!-- TOP BAR -->
     <header class="top-bar">
-        <a href="index.html" class="back-link">← Home</a>
+        <a href="index.html" class="back-link">&#8592; Home</a>
         <h1>Diagnosis</h1>
         <span style="width:60px"></span>
     </header>
 
-    <!-- SCREEN 1: SYMPTOM PICKER -->
+    <!-- ==========================================
+         SCREEN 1: SYMPTOM PICKER
+         ========================================== -->
     <div id="symptomPicker">
 
         <h2 class="page-title">What's the problem?</h2>
@@ -354,99 +358,101 @@
         <div class="category-header">Engine</div>
 
         <div class="menu-card" onclick="beginTree('engine_no_start')">
-            <div class="menu-icon red">🚫</div>
+            <div class="menu-icon red">&#128683;</div>
             <div class="menu-text">
                 <div class="menu-title">Engine Won't Start</div>
                 <div class="menu-subtitle">No crank, cranks but won't fire, slow crank</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="menu-card" onclick="beginTree('engine_overheat')">
-            <div class="menu-icon orange">🌡️</div>
+            <div class="menu-icon orange">&#127777;&#65039;</div>
             <div class="menu-text">
                 <div class="menu-title">Overheating</div>
                 <div class="menu-subtitle">Overheat alarm, high temp, no tell-tale</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="menu-card" onclick="beginTree('engine_runs_rough')">
-            <div class="menu-icon orange">📳</div>
+            <div class="menu-icon orange">&#128243;</div>
             <div class="menu-text">
                 <div class="menu-title">Runs Rough / Misfires</div>
                 <div class="menu-subtitle">Vibration, stumble, poor performance</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="category-header">Electrical</div>
 
         <div class="menu-card" onclick="beginTree('charging_electrical')">
-            <div class="menu-icon orange">🔋</div>
+            <div class="menu-icon orange">&#128267;</div>
             <div class="menu-text">
                 <div class="menu-title">Charging / Battery Issues</div>
                 <div class="menu-subtitle">Dead battery, not charging, low voltage</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="category-header">Steering &amp; Trim</div>
 
         <div class="menu-card" onclick="beginTree('trim_steering')">
-            <div class="menu-icon blue">🔄</div>
+            <div class="menu-icon blue">&#128260;</div>
             <div class="menu-text">
                 <div class="menu-title">Trim &amp; Steering Problems</div>
                 <div class="menu-subtitle">Trim inop, steering stiff, hydraulic issues</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="category-header">Electronics</div>
 
         <div class="menu-card" onclick="beginTree('electronics')">
-            <div class="menu-icon purple">📡</div>
+            <div class="menu-icon purple">&#128225;</div>
             <div class="menu-text">
                 <div class="menu-title">Electronics / MFD / Gauges</div>
                 <div class="menu-subtitle">No display, no data, NMEA network problems</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="category-header">Accessories</div>
 
         <div class="menu-card" onclick="beginTree('stereo_audio')">
-            <div class="menu-icon purple">🔊</div>
+            <div class="menu-icon purple">&#128266;</div>
             <div class="menu-text">
                 <div class="menu-title">Stereo / Audio System</div>
                 <div class="menu-subtitle">No sound, distortion, Bluetooth, amp problems</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="category-header">Safety Equipment</div>
 
         <div class="menu-card" onclick="beginTree('nav_lights')">
-            <div class="menu-icon green">💡</div>
+            <div class="menu-icon green">&#128161;</div>
             <div class="menu-text">
                 <div class="menu-title">Navigation Lights</div>
                 <div class="menu-subtitle">Lights out, dim, flickering</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
         <div class="menu-card" onclick="beginTree('horn_system')">
-            <div class="menu-icon green">📢</div>
+            <div class="menu-icon green">&#128226;</div>
             <div class="menu-text">
                 <div class="menu-title">Horn Not Working</div>
                 <div class="menu-subtitle">Dead horn, weak, stuck on</div>
             </div>
-            <span class="menu-arrow">›</span>
+            <span class="menu-arrow">&#8250;</span>
         </div>
 
     </div>
 
-    <!-- SCREEN 2: DIAGNOSTIC TREE -->
+    <!-- ==========================================
+         SCREEN 2: DIAGNOSTIC TREE
+         ========================================== -->
     <div id="diagnosticArea" style="display:none;">
         <div class="diag-breadcrumb" id="breadcrumb"></div>
         <div id="treeContent"></div>
@@ -455,7 +461,9 @@
     <!-- Load diagnostic tree data -->
     <script src="js/diagnosticTrees.js"></script>
 
-    <!-- Diagnostic engine -->
+    <!-- ==========================================
+         DIAGNOSTIC ENGINE
+         ========================================== -->
     <script>
 
     var currentTree = null;
@@ -474,7 +482,7 @@
         }
 
         if (!window.defined_trees[treeName]) {
-            alert('Error: Tree "' + treeName + '" not found.');
+            alert('Error: Tree "' + treeName + '" not found in the data.');
             return;
         }
 
@@ -530,51 +538,51 @@
 
         var node = currentTree.nodes[currentNodeId];
 
-        // Error check
+        // Error check — node not found
         if (!node) {
             var errHtml = '<div class="diag-card">';
-            errHtml = errHtml + '<p style="color:red;">Error: Node "' + currentNodeId + '" not found in this tree.</p>';
-            errHtml = errHtml + '<button class="diag-back-btn" onclick="goBack()">Go Back</button> ';
+            errHtml = errHtml + '<div class="diag-warning">Error: Node "' + currentNodeId + '" not found in this diagnostic tree.</div>';
+            errHtml = errHtml + '<button class="diag-back-btn" onclick="goBack()">&#8592; Go Back</button> ';
             errHtml = errHtml + '<button class="diag-back-btn" onclick="startOver()">Start Over</button>';
             errHtml = errHtml + '</div>';
             document.getElementById('treeContent').innerHTML = errHtml;
             return;
         }
 
-        // Build breadcrumb
+        // Build breadcrumb trail
         var bcHtml = '<span>' + currentTree.title + '</span>';
         for (var b = 0; b < navHistory.length; b++) {
             var hNode = currentTree.nodes[navHistory[b]];
             if (hNode) {
-                var label = hNode.id.replace(/_/g, ' ');
-                if (label.length > 20) label = label.substring(0, 20) + '...';
-                bcHtml = bcHtml + ' <span>' + label + '</span>';
+                var bLabel = hNode.id.replace(/_/g, ' ');
+                if (bLabel.length > 20) bLabel = bLabel.substring(0, 20) + '...';
+                bcHtml = bcHtml + ' <span>' + bLabel + '</span>';
             }
         }
         document.getElementById('breadcrumb').innerHTML = bcHtml;
 
-        // Resolution node gets special rendering
+        // Resolution nodes get special rendering
         if (node.type === 'resolution') {
             renderResolution(node);
             return;
         }
 
-        // Build the main card
+        // Build the main diagnostic card
         var html = '<div class="diag-card">';
 
-        // Question or instruction title
+        // Question or instruction heading
         if (node.type === 'question') {
             html = html + '<div class="diag-question">' + node.text + '</div>';
         } else {
             html = html + '<div class="diag-instruction">' + node.text + '</div>';
         }
 
-        // Warning box
+        // Warning box (red)
         if (node.warning) {
             html = html + '<div class="diag-warning">' + node.warning + '</div>';
         }
 
-        // Help box
+        // Help box (blue)
         if (node.help) {
             html = html + '<div class="diag-help">' + node.help + '</div>';
         }
@@ -587,7 +595,7 @@
             html = html + '</div>';
         }
 
-        // Checklist
+        // Checklist with checkboxes
         if (node.checklist && node.checklist.length > 0) {
             html = html + '<div class="diag-checklist">';
             for (var c = 0; c < node.checklist.length; c++) {
@@ -599,16 +607,15 @@
             html = html + '</div>';
         }
 
-        // Option buttons — using onclick with escaped quotes
+        // Option buttons
         if (node.options && node.options.length > 0) {
-            html = html + '<div style="margin-top:16px;">';
+            html = html + '<div class="options-label">What did you find?</div>';
             for (var o = 0; o < node.options.length; o++) {
                 var opt = node.options[o];
                 html = html + '<button class="diag-option-btn" onclick="goToNode(\'' + opt.next + '\')">';
-                html = html + opt.label;
+                html = html + '<span>' + opt.label + '</span>';
                 html = html + '</button>';
             }
-            html = html + '</div>';
         }
 
         // Back button
@@ -618,7 +625,7 @@
 
         html = html + '</div>'; // close diag-card
 
-        // Tool checklist on the first node only
+        // Tool checklist — only shown on the first node
         if (navHistory.length === 0 && currentTree.requiredTools) {
             html = html + '<div class="tool-checklist">';
             html = html + '<div class="tool-checklist-title">Tools Needed for This Diagnosis</div>';
@@ -641,25 +648,27 @@
 
         var html = '<div class="resolution-card ' + sevClass + '">';
 
-        // Title and severity badge
+        // Title
         html = html + '<div class="resolution-title">' + (node.title || 'Resolution') + '</div>';
+
+        // Severity badge
         html = html + '<span class="resolution-severity ' + sevLabel + '">' + (node.severity || 'INFO') + '</span>';
 
-        // Main text
+        // Main description
         html = html + '<div class="resolution-text">' + node.text + '</div>';
 
-        // Warning
+        // Warning if present
         if (node.warning) {
             html = html + '<div class="diag-warning">' + node.warning + '</div>';
         }
 
-        // Action
+        // Action required
         if (node.action) {
             html = html + '<div class="resolution-section-label">Action Required</div>';
             html = html + '<div class="resolution-action">' + node.action + '</div>';
         }
 
-        // Help
+        // Additional info
         if (node.help) {
             html = html + '<div class="resolution-section-label">Additional Info</div>';
             html = html + '<div class="resolution-action">' + node.help + '</div>';
