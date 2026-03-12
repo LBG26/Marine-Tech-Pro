@@ -7,39 +7,59 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Diagnostic option buttons — defined here to guarantee they work */
+    /* ==========================================
+           DIAGNOSTIC PAGE STYLES
+           These override/supplement the main CSS
+           to ensure everything looks right
+           ========================================== */
+
+        /* Option buttons — styled to match menu cards */
         .diag-option-btn {
-            display: block;
+            display: flex;
+            align-items: center;
             width: 100%;
             text-align: left;
-            padding: 14px 16px;
+            padding: 16px;
             margin-bottom: 8px;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
             font-size: 15px;
             color: #2c3e50;
             cursor: pointer;
             line-height: 1.4;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
             -webkit-appearance: none;
             appearance: none;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
         }
 
         .diag-option-btn:active {
             background: #e3f0fc;
             border-color: #2980b9;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        .diag-option-btn::after {
+            content: '\203A';
+            font-size: 22px;
+            color: #ccc;
+            margin-left: auto;
+            padding-left: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Back button */
         .diag-back-btn {
             display: inline-block;
             margin-top: 12px;
-            padding: 10px 20px;
-            background: none;
+            padding: 12px 24px;
+            background: #f8f9fa;
             border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
+            font-weight: 600;
             color: #7f8c8d;
             cursor: pointer;
             -webkit-appearance: none;
@@ -48,30 +68,32 @@
         }
 
         .diag-back-btn:active {
-            background: #f0f0f0;
+            background: #eee;
         }
 
+        /* Start over / new diagnosis button */
         .resolution-start-over {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background: #1a3a5c;
+            margin-top: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
             color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             -webkit-appearance: none;
             appearance: none;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: 0.5px;
         }
 
         .resolution-start-over:active {
             background: #0d2137;
         }
 
-        /* Make sure cards display properly */
+        /* Diagnostic card */
         .diag-card {
             background: #fff;
             margin: 16px;
@@ -81,55 +103,63 @@
             border: 1px solid #eee;
         }
 
+        /* Question text */
         .diag-question {
             font-size: 18px;
             font-weight: 700;
             color: #1a3a5c;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             line-height: 1.4;
         }
 
+        /* Instruction text */
         .diag-instruction {
             font-size: 17px;
             font-weight: 700;
             color: #1a3a5c;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             line-height: 1.4;
         }
 
+        /* Help info box */
         .diag-help {
             font-size: 14px;
-            color: #666;
-            background: #f8f9fa;
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 14px;
-            line-height: 1.5;
+            color: #555;
+            background: #f0f7ff;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            border-left: 4px solid #2980b9;
         }
 
+        /* Warning box */
         .diag-warning {
             font-size: 14px;
             color: #c0392b;
             background: #fde8e8;
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 14px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
             font-weight: 600;
             border-left: 4px solid #e74c3c;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
+        /* Measurement box */
         .diag-measurement {
             background: #e3f0fc;
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-bottom: 14px;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
             font-size: 14px;
+            border-left: 4px solid #2980b9;
         }
 
         .diag-measurement-label {
             font-weight: 700;
             color: #1a3a5c;
+            margin-bottom: 4px;
         }
 
         .diag-measurement-expected {
@@ -137,17 +167,21 @@
             font-weight: 600;
         }
 
+        /* Checklist */
         .diag-checklist {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 4px 14px;
         }
 
         .diag-checklist-item {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            padding: 8px 0;
+            padding: 10px 0;
             font-size: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #eee;
             line-height: 1.5;
         }
 
@@ -160,8 +194,10 @@
             height: 22px;
             flex-shrink: 0;
             margin-top: 1px;
+            accent-color: #27ae60;
         }
 
+        /* Breadcrumb trail */
         .diag-breadcrumb {
             display: flex;
             flex-wrap: wrap;
@@ -177,26 +213,34 @@
             border-radius: 4px;
         }
 
+        /* Tool checklist */
         .tool-checklist {
-            background: #f8f9fa;
-            padding: 14px 16px;
-            border-radius: 8px;
-            margin: 12px 16px 0;
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 12px 16px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
 
         .tool-checklist-title {
             font-size: 13px;
             font-weight: 700;
-            color: #95a5a6;
+            color: #1a3a5c;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .tool-item {
             font-size: 14px;
-            padding: 3px 0;
+            padding: 5px 0;
             color: #555;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .tool-item:last-child {
+            border-bottom: none;
         }
 
         /* Resolution cards */
@@ -214,27 +258,68 @@
         .resolution-card.severity-high { border-top-color: #e67e22; }
         .resolution-card.severity-critical { border-top-color: #e74c3c; }
 
-        .resolution-title { font-size:18px; font-weight:800; color:#1a3a5c; margin-bottom:4px; }
+        .resolution-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a3a5c;
+            margin-bottom: 4px;
+        }
 
         .resolution-severity {
-            display:inline-block; font-size:12px; font-weight:700;
-            padding:3px 10px; border-radius:20px; margin-bottom:12px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
         }
-        .resolution-severity.sev-low { background:#e6f4ea; color:#1e7e34; }
-        .resolution-severity.sev-medium { background:#fef3e2; color:#b8860b; }
-        .resolution-severity.sev-high { background:#fde8e8; color:#c0392b; }
-        .resolution-severity.sev-critical { background:#e74c3c; color:#fff; }
 
-        .resolution-text { font-size:15px; color:#2c3e50; margin-bottom:14px; line-height:1.6; }
+        .resolution-severity.sev-low { background: #e6f4ea; color: #1e7e34; }
+        .resolution-severity.sev-medium { background: #fef3e2; color: #b8860b; }
+        .resolution-severity.sev-high { background: #fde8e8; color: #c0392b; }
+        .resolution-severity.sev-critical { background: #e74c3c; color: #fff; }
+
+        .resolution-text {
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
 
         .resolution-section-label {
-            font-size:13px; font-weight:700; color:#95a5a6;
-            text-transform:uppercase; letter-spacing:1px; margin-top:14px; margin-bottom:6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a3a5c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #eee;
         }
 
-        .resolution-action { font-size:15px; color:#2c3e50; line-height:1.6; }
-        .resolution-part-item { font-size:14px; padding:4px 0; color:#2c3e50; }
-    </style>
+        .resolution-action {
+            font-size: 15px;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .resolution-part-item {
+            font-size: 14px;
+            padding: 4px 0;
+            color: #2c3e50;
+        }
+
+        /* Section label between buttons */
+        .options-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 </head>
 <body>
 
